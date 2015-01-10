@@ -77,7 +77,7 @@ namespace MonoTorrent.Client
             keys = new List<string>();
             server = new MonoTorrent.Tracker.Tracker();
             server.AllowUnregisteredTorrents = true;
-            listener = new MonoTorrent.Tracker.Listeners.UdpListener(6767);
+            listener = new MonoTorrent.Tracker.Listeners.UdpListener(new IPEndPoint(IPAddress.IPv6Any, 6767));
             listener.AnnounceReceived += delegate(object o, MonoTorrent.Tracker.AnnounceParameters e)
             {
                 keys.Add(e.Key);
@@ -378,8 +378,8 @@ namespace MonoTorrent.Client
         public bool IgnoreErrors;
         public bool IgnoreScrapes;
 
-        public IgnoringListener(int port)
-            : base(port)
+			public IgnoringListener(int port)
+            : base(new IPEndPoint(IPAddress.IPv6Any, port))
         {
 
         }

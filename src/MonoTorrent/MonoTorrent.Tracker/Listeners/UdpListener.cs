@@ -55,6 +55,7 @@ namespace MonoTorrent.Tracker.Listeners
             get { return listener != null; }
         }
 
+			[Obsolete("Always specify address family (this defaults to IPv4 and on dual stack system it is wrong", false)]
         public UdpListener(int port)
             : this(new IPEndPoint(IPAddress.Any, port))
         {
@@ -77,7 +78,7 @@ namespace MonoTorrent.Tracker.Listeners
             //TODO test if it is better to use socket directly
             //Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             
-            listener = new System.Net.Sockets.UdpClient(endpoint.Port);
+            listener = new System.Net.Sockets.UdpClient(endpoint);
             listener.BeginReceive(new AsyncCallback(ReceiveData), listener);
         }
 
